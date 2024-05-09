@@ -1,0 +1,26 @@
+{
+	"folders":
+	[
+		{
+			"path": "."
+		}
+	],
+	"build_systems": [
+		{
+			"name": "flask single file",
+			"cmd": ["$project_path/venv/bin/python3", "$file"]
+		}
+	],
+	"settings": {
+		"LSP": {
+			"LSP-pylsp": {
+				"settings": {
+					"pylsp.plugins.jedi.environment": "$project_path/venv",					
+				}
+			},
+			"LSP-typescript": {
+				"selector": "source.js,source.html"
+			}
+		}
+	}
+}

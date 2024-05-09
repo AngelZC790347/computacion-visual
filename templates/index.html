@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>FLask</title>
+</head>
+
+<body>
+	<form class="app"  action="upload" method="post"  enctype="multipart/form-data">
+		<h1 id="title">Letra U</h1>
+		<canvas id="canvas" width="300" height="300"></canvas>
+		<div class="input-sec">
+			<button type="button" onclick="clearCanvas()" class="control">Borrar</button>
+			<input type="hidden" name="image-data" id="image-data">
+			<input id="numero" name="numero" type="hidden" value="U">
+			<input class="control" type="submit" onclick="sendPicture()" name="" value="enviar">
+		</div>
+
+	</form>
+
+	<script >
+		var lastX, lastY;
+		var mousePressed;
+		const LETRAS = ['U','P','C','H']
+		const randonLeter = LETRAS[Math.floor(Math.random()*LETRAS.length)]
+		const $randomNumber = document.getElementById("numero");
+		$randomNumber.value = randonLeter
+		const $canvas = document.getElementById("canvas");
+		const $title = document.getElementById("title");
+		$title.innerHTML = `Letra ${randonLeter}`
+		var ctx = $canvas.getContext("2d");
+		$canvas.onmousedown=function(e) {
+			mousePressed = true;
+          	Draw(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, false);
+		}
+		$canvas.onmousemove=function(e){
+			if (mousePressed) {
+              Draw(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
+          	}
+		}
+		$canvas.onmouseup=function(e) {
+			mousePressed = false;
+		}
+		$canvas.onmouseleave=function(e) {
+			mousePressed = false;
+		}
+		function clearCanvas() {			
+			ctx.setTransform(1, 0, 0, 1, 0, 0);
+      		ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+		}
+		function sendPicture(e){
+			// e.preventDefault()
+			console.log($canvas.toDataURL())
+			document.getElementById('image-data').value = $canvas.toDataURL();			
+		}
+		function Draw(x, y, isDown) {
+			if (isDown) {
+				ctx.beginPath();
+				ctx.strokeStyle = 'white';
+				ctx.lineWidth = 11;
+				ctx.lineJoin = "round";
+				ctx.moveTo(lastX, lastY);
+				ctx.lineTo(x, y);
+				ctx.closePath();
+				ctx.stroke();
+			}
+			lastX = x; lastY = y;
+		}
+	</script>
+	<style type="text/css">
+		:root {
+			color-scheme: dark;
+		}
+
+		h1 {
+			text-align: center;
+			font-size: 80px;
+			margin: 0;
+		}
+
+		.app {
+			display: grid;
+			height: 100dvh;
+			place-content: center;
+			gap: 80px;
+		}
+
+		canvas {
+			border: solid 1px purple;
+		}
+
+		.input-sec {
+			display: flex;
+			justify-content: center;
+			gap: 20px;
+		}
+
+		.control {
+			font-size: 15px;
+			background: blue;
+			text-transform: uppercase;
+			padding: 10px 30px;
+			border: 0px;
+			border-radius: 10px;
+		}
+	</style>
+</body>
+
+</html>

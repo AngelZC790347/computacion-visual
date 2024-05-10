@@ -34,4 +34,4 @@ if __name__ == '__main__':
     for d in digits:
         if not os.path.exists(str(d)):
             os.mkdir(str(d))
-    app.run(debug=True,port=10000)
+    app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 3000)))

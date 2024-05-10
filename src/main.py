@@ -34,4 +34,4 @@ if __name__ == '__main__':
     for d in digits:
         if not os.path.exists(str(d)):
             os.mkdir(str(d))
-    app.run(debug=True)
+    app.run(debug=True,port=1000)
